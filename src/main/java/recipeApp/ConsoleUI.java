@@ -52,6 +52,11 @@ public class ConsoleUI {
   }
 
   private int getInputInteger() {
-    return scanner.nextInt();
+    if (scanner.hasNextInt()) {
+      return scanner.nextInt();
+    } else {
+      scanner.next();
+      return -1;
+    }
   }
 }
