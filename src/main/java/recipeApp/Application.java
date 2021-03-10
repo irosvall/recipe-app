@@ -1,6 +1,7 @@
 package recipeApp;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Application {
   private FileIO fileHandler;
@@ -8,13 +9,16 @@ public class Application {
   private Searcher searcher;
   private ArrayList<Recipe> recipes;
   private ArrayList<Ingredient> ingredients;
+  private Scanner scanner;
 
-  Application() {
+  Application(Scanner scanner) {
+    this.scanner = scanner;
     fileHandler = new FileIO();
-    ui = new ConsoleUI();
+    ui = new ConsoleUI(scanner);
     searcher = new Searcher();
     recipes = new ArrayList<>();
     ingredients = new ArrayList<>();
+    
   }
 
   private void run() {
@@ -22,13 +26,15 @@ public class Application {
   }
 
   private void start() {
-    
+    ui.promptForMenuAction();
   }
 
   public static void main(String[] args) {
     try {
-      Application app = new Application();
+      Scanner scanner = new Scanner(System.in);
+      Application app = new Application(scanner);
       app.run();
+      scanner.close();
     } catch (Exception error) {
       error.printStackTrace();
     }
