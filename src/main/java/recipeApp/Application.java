@@ -13,11 +13,24 @@ public class Application {
     fileHandler = new FileIO();
     ui = new ConsoleUI();
     searcher = new Searcher();
+    recipes = new ArrayList<>();
+    ingredients = new ArrayList<>();
+  }
+
+  private void run() {
+    start();
+  }
+
+  private void start() {
     
   }
 
   public static void main(String[] args) {
-    Application app = new Application();
-    app.run();
-  }
+    try {
+      Application app = new Application();
+      app.run();
+    } catch (Exception error) {
+      error.printStackTrace();
+    }
+  } 
 }
