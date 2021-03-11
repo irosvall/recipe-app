@@ -1,7 +1,10 @@
 package recipeApp;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import recipeApp.ConsoleUI.RecipeOrIngredientAction;
 
 public class Application {
   private FileIO fileHandler;
@@ -18,7 +21,6 @@ public class Application {
     searcher = new Searcher();
     recipes = new ArrayList<>();
     ingredients = new ArrayList<>();
-    
   }
 
   private void run() {
@@ -28,13 +30,36 @@ public class Application {
   private void start() {
     ConsoleUI.MenuAction action = ui.promptForMenuAction();
     switch (action) {
-      case ADD:
-        ui.promptForRecipeOrIngredient();
-        break;
-      case REMOVE:
-        ui.promptForRecipeOrIngredient();
-        break;
+    case ADD:
+      ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
+      if (choice == RecipeOrIngredientAction.RECIPE) {
+
+      } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
+        addIngredient();
+      }
+      break;
+    case REMOVE:
+      ui.promptForRecipeOrIngredient();
+      break;
     }
+  }
+
+  private void addIngredient() {
+    String name = ui.promptForName();
+    while (!IngredientIsUnique(name)) {
+      ui.print("The ingredient already exist.");
+      name = ui.promptForName();
+    }
+    ui.print("good");
+  }
+
+  private boolean IngredientIsUnique(String name) {
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equalsIgnoreCase(name)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public static void main(String[] args) {
@@ -46,5 +71,5 @@ public class Application {
     } catch (Exception error) {
       error.printStackTrace();
     }
-  } 
+  }
 }

@@ -24,6 +24,14 @@ public class ConsoleUI {
     RECIPE, INGREDIENT, None
   }
 
+  public enum IngredientMeasure {
+    GRAMS, LITRE, PIECE, CUP, TABLESPOON, TEASPOON
+  }
+
+  public void print(String value) {
+    System.out.println(value);
+  }
+
   /**
    * Let's the user choose a menu action.
    */
@@ -94,5 +102,25 @@ public class ConsoleUI {
       scanner.next();
       return -1;
     }
+  }
+
+  private String getInputString() {
+    if (scanner.hasNextLine()) {
+      return scanner.nextLine();
+    } else {
+      scanner.next();
+      return "";
+    }
+  }
+
+  public String promptForName() {
+    System.out.println("Give a name:");
+
+    String name;
+    do {
+      name = getInputString();
+    } while (name.length() < 1);
+
+    return name;
   }
 }
