@@ -12,11 +12,22 @@ public class ConsoleUI {
   /**
    * Represents the actions a user can perform from the menu.
    */
-  public enum Action {
+  public enum MenuAction {
     ADD, REMOVE, LIST, QUIT, None
   }
 
-  public Action promptForMenuAction() {
+  /**
+   * Represents the actions a user can perform from when choosing recipe or
+   * ingredient.
+   */
+  public enum RecipeOrIngredientAction {
+    RECIPE, INGREDIENT, None
+  }
+
+  /**
+   * Let's the user choose a menu action.
+   */
+  public MenuAction promptForMenuAction() {
     printMenu();
 
     int answer;
@@ -27,21 +38,46 @@ public class ConsoleUI {
 
     switch (answer) {
     case 1:
-      return Action.ADD;
+      return MenuAction.ADD;
     case 2:
-      return Action.REMOVE;
+      return MenuAction.REMOVE;
     case 3:
-      return Action.LIST;
+      return MenuAction.LIST;
     case 4:
-      return Action.QUIT;
+      return MenuAction.QUIT;
     default:
-      return Action.None;
+      return MenuAction.None;
     }
   }
 
   private void printMenu() {
     String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
         "List all recipes or ingredients", "Quit the application" };
+    printList(actions);
+  }
+
+  public RecipeOrIngredientAction promptForRecipeOrIngredient() {
+    printRecipeOrIngredient();
+
+    int answer;
+
+    do {
+      answer = getInputInteger();
+    } while (answer < 1 || answer > 3);
+
+    switch (answer) {
+      case 1:
+        return RecipeOrIngredientAction.RECIPE;
+      case 2:
+        return RecipeOrIngredientAction.INGREDIENT;
+      default:
+        return RecipeOrIngredientAction.None;
+    }
+  }
+
+  private void printRecipeOrIngredient() {
+    System.out.println("Choose between:");
+    String[] actions = new String[] { "Recipe", "Ingredient", "Go back to main menu" };
     printList(actions);
   }
 

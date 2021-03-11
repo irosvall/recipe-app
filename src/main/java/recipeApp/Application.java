@@ -26,7 +26,15 @@ public class Application {
   }
 
   private void start() {
-    ui.promptForMenuAction();
+    ConsoleUI.MenuAction action = ui.promptForMenuAction();
+    switch (action) {
+      case ADD:
+        ui.promptForRecipeOrIngredient();
+        break;
+      case REMOVE:
+        ui.promptForRecipeOrIngredient();
+        break;
+    }
   }
 
   public static void main(String[] args) {
