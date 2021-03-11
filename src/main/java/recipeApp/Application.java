@@ -50,7 +50,7 @@ public class Application {
       ui.print("The ingredient already exist.");
       name = ui.promptForName();
     }
-    ui.print("good");
+    Ingredient.Unit unit = ui.promptForMeasureUnit();
   }
 
   private boolean IngredientIsUnique(String name) {

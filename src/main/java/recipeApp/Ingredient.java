@@ -2,13 +2,17 @@ package recipeApp;
 
 public class Ingredient {
   private String name;
-  private String unit;
+  private Unit unit;
   private Double price;
 
-  Ingredient(String name, String unit, Double price) {
+  Ingredient(String name, Unit unit, Double price) {
     this.name = name;
     this.unit = unit;
     this.price = price;
+  }
+
+  public enum Unit {
+    GRAMS, LITRE, PIECE, CUP, TABLESPOON, TEASPOON
   }
 
   public String getName() {
@@ -19,7 +23,7 @@ public class Ingredient {
     return price;
   }
 
-  public String getUnit() {
+  public Unit getUnit() {
     return unit;
   }
 

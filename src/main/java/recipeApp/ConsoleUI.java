@@ -24,10 +24,6 @@ public class ConsoleUI {
     RECIPE, INGREDIENT, None
   }
 
-  public enum IngredientMeasure {
-    GRAMS, LITRE, PIECE, CUP, TABLESPOON, TEASPOON
-  }
-
   public void print(String value) {
     System.out.println(value);
   }
@@ -74,12 +70,12 @@ public class ConsoleUI {
     } while (answer < 1 || answer > 3);
 
     switch (answer) {
-      case 1:
-        return RecipeOrIngredientAction.RECIPE;
-      case 2:
-        return RecipeOrIngredientAction.INGREDIENT;
-      default:
-        return RecipeOrIngredientAction.None;
+    case 1:
+      return RecipeOrIngredientAction.RECIPE;
+    case 2:
+      return RecipeOrIngredientAction.INGREDIENT;
+    default:
+      return RecipeOrIngredientAction.None;
     }
   }
 
@@ -122,5 +118,33 @@ public class ConsoleUI {
     } while (name.length() < 1);
 
     return name;
+  }
+
+  public Ingredient.Unit promptForMeasureUnit() {
+    System.out.println("Choose a unit of measure:");
+    String[] units = new String[] { "Grams", "Litre", "Piece", "Cup", "Tablespoon", "Teaspoon" };
+    printList(units);
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 1 || answer > units.length);
+
+    switch (answer) {
+    case 1:
+      return Ingredient.Unit.GRAMS;
+    case 2:
+      return Ingredient.Unit.LITRE;
+    case 3:
+      return Ingredient.Unit.PIECE;
+    case 4:
+      return Ingredient.Unit.CUP;
+    case 5:
+      return Ingredient.Unit.TABLESPOON;
+    case 6:
+      return Ingredient.Unit.TEASPOON;
+    default:
+      return Ingredient.Unit.GRAMS;
+    }
   }
 }
