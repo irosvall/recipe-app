@@ -28,29 +28,38 @@ public class Application {
   }
 
   private void start() {
-    ConsoleUI.MenuAction action = ui.promptForMenuAction();
-    switch (action) {
-    case ADD:
-      ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
-      if (choice == RecipeOrIngredientAction.RECIPE) {
+    ConsoleUI.MenuAction action;
+    do {
+      action = ui.promptForMenuAction();
+      switch (action) {
+      case ADD:
+        ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
+        if (choice == RecipeOrIngredientAction.RECIPE) {
 
-      } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
-        addIngredient();
+        } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
+          addIngredient();
+        }
+        break;
+      case REMOVE:
+        ui.promptForRecipeOrIngredient();
+        break;
       }
-      break;
-    case REMOVE:
-      ui.promptForRecipeOrIngredient();
-      break;
-    }
+    } while (action != ConsoleUI.MenuAction.QUIT);
+    
   }
 
-  private void addIngredient() {
+  private Ingredient addIngredient() {
     String name = ui.promptForName();
     while (!IngredientIsUnique(name)) {
       ui.print("The ingredient already exist.");
       name = ui.promptForName();
     }
     Ingredient.Unit unit = ui.promptForMeasureUnit();
+    Double price = ui.promptForPrice();
+
+    Ingredient ingredient = new Ingredient(name, unit, price);
+    ingredients.add(ingredient);
+    return ingredient;
   }
 
   private boolean IngredientIsUnique(String name) {

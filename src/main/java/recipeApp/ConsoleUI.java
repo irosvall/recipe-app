@@ -100,6 +100,15 @@ public class ConsoleUI {
     }
   }
 
+  private Double getInputDouble() {
+    if (scanner.hasNextDouble()) {
+      return scanner.nextDouble();
+    } else {
+      scanner.next();
+      return -1.0;
+    }
+  }
+
   private String getInputString() {
     if (scanner.hasNextLine()) {
       return scanner.nextLine();
@@ -146,5 +155,16 @@ public class ConsoleUI {
     default:
       return Ingredient.Unit.GRAMS;
     }
+  }
+
+  public Double promptForPrice() {
+    System.out.println("Give a positive number of how much it should cost:");
+
+    Double price;
+    do {
+      price = getInputDouble();
+    } while (price < 0);
+
+    return price;
   }
 }
