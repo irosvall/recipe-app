@@ -13,7 +13,7 @@ public class ConsoleUI {
    * Represents the actions a user can perform from the menu.
    */
   public enum MenuAction {
-    ADD, REMOVE, LIST, QUIT, None
+    ADD, DELETE, LIST, QUIT, None
   }
 
   /**
@@ -44,7 +44,7 @@ public class ConsoleUI {
     case 1:
       return MenuAction.ADD;
     case 2:
-      return MenuAction.REMOVE;
+      return MenuAction.DELETE;
     case 3:
       return MenuAction.LIST;
     case 4:
@@ -116,6 +116,22 @@ public class ConsoleUI {
       scanner.next();
       return "";
     }
+  }
+
+  /**
+   * Returns the index of the chosen value from an array.
+   */
+  public int promptChooseValue(String[] values) {
+    System.out.println("Choose one:");
+    System.out.println("0. Go back to main menu");
+    printList(values);
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 0 || answer > values.length);
+
+    return answer - 1;
   }
 
   public String promptForName() {

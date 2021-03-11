@@ -33,19 +33,23 @@ public class Application {
       action = ui.promptForMenuAction();
       switch (action) {
       case ADD:
-        ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
-        if (choice == RecipeOrIngredientAction.RECIPE) {
+        ConsoleUI.RecipeOrIngredientAction addChoice = ui.promptForRecipeOrIngredient();
+        if (addChoice == RecipeOrIngredientAction.RECIPE) {
 
-        } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
+        } else if (addChoice == RecipeOrIngredientAction.INGREDIENT) {
           addIngredient();
         }
         break;
-      case REMOVE:
-        ui.promptForRecipeOrIngredient();
+      case DELETE:
+        ConsoleUI.RecipeOrIngredientAction removeChoice = ui.promptForRecipeOrIngredient();
+        if (removeChoice == RecipeOrIngredientAction.RECIPE) {
+
+        } else if (removeChoice == RecipeOrIngredientAction.INGREDIENT) {
+          deleteIngredient();
+        }
         break;
       }
     } while (action != ConsoleUI.MenuAction.QUIT);
-    
   }
 
   private Ingredient addIngredient() {
@@ -62,6 +66,10 @@ public class Application {
     return ingredient;
   }
 
+  /**
+   * Checks if the ingredient is unique by comparing its name to other ingredients
+   * names.
+   */
   private boolean IngredientIsUnique(String name) {
     for (Ingredient ingredient : ingredients) {
       if (ingredient.getName().equalsIgnoreCase(name)) {
@@ -69,6 +77,39 @@ public class Application {
       }
     }
     return true;
+  }
+
+  private void deleteIngredient() {
+    String[] ingredientNames = getIngredientNames();
+
+    if (ingredientNames.length > 0) {
+      int index = ui.promptChooseValue(ingredientNames);
+      if (isNegative(index)) {
+        return;
+      }
+      ingredients.remove(index);
+    } else {
+      ui.print("There is no ingredients to delete.");
+    }
+  }
+
+  private String[] getIngredientNames() {
+    String[] ingredientNames = new String[ingredients.size()];
+    for (int i = 0; i < ingredients.size(); i++) {
+      ingredientNames[i] = ingredients.get(i).getName();
+    }
+    return ingredientNames;
+  }
+
+  /**
+   * Checks if an integer is under 0. Is used to determinate if the user want go
+   * back to the main menu.
+   */
+  private boolean isNegative(int value) {
+    if (value < 0) {
+      return true;
+    }
+    return false;
   }
 
   public static void main(String[] args) {
