@@ -43,7 +43,7 @@ public class Application {
       case DELETE:
         ConsoleUI.RecipeOrIngredientAction removeChoice = ui.promptForRecipeOrIngredient();
         if (removeChoice == RecipeOrIngredientAction.RECIPE) {
-
+          deleteRecipe();
         } else if (removeChoice == RecipeOrIngredientAction.INGREDIENT) {
           deleteIngredient();
         }
@@ -89,7 +89,7 @@ public class Application {
       }
       ingredients.remove(index);
     } else {
-      ui.print("There is no ingredients to delete.");
+      ui.print("There are no ingredients to delete.");
     }
   }
 
@@ -99,6 +99,28 @@ public class Application {
       ingredientNames[i] = ingredients.get(i).getName();
     }
     return ingredientNames;
+  }
+
+  private void deleteRecipe() {
+    String[] recipeNames = getRecipeNames();
+
+    if (recipeNames.length > 0) {
+      int index = ui.promptChooseValue(recipeNames);
+      if (isNegative(index)) {
+        return;
+      }
+      recipes.remove(index);
+    } else {
+      ui.print("There are no recipes to delete.");
+    }
+  }
+
+  private String[] getRecipeNames() {
+    String[] recipeNames = new String[recipes.size()];
+    for (int i = 0; i < recipes.size(); i++) {
+      recipeNames[i] = recipes.get(i).getName();
+    }
+    return recipeNames;
   }
 
   /**
