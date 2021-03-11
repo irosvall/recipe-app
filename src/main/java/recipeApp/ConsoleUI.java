@@ -55,6 +55,7 @@ public class ConsoleUI {
   }
 
   private void printMenu() {
+    System.out.println("");
     String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
         "List all recipes or ingredients", "Quit the application" };
     printList(actions);
@@ -182,5 +183,27 @@ public class ConsoleUI {
     } while (price < 0);
 
     return price;
+  }
+
+  public int promptForPortions() {
+    System.out.println("Enter how many portions the recipe is for:");
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 1);
+
+    return answer;
+  }
+
+  public String promptForInstructions() {
+    System.out.println("Enter instructions for the recipe:");
+
+    String instructions;
+    do {
+      instructions = getInputString();
+    } while (instructions.length() < 1);
+
+    return instructions;
   }
 }

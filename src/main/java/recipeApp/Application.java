@@ -35,7 +35,7 @@ public class Application {
       case ADD:
         ConsoleUI.RecipeOrIngredientAction addChoice = ui.promptForRecipeOrIngredient();
         if (addChoice == RecipeOrIngredientAction.RECIPE) {
-
+          addRecipe();
         } else if (addChoice == RecipeOrIngredientAction.INGREDIENT) {
           addIngredient();
         }
@@ -50,6 +50,16 @@ public class Application {
         break;
       }
     } while (action != ConsoleUI.MenuAction.QUIT);
+  }
+
+  private Recipe addRecipe() {
+    String name = ui.promptForName();
+    int portions = ui.promptForPortions();
+    String instructions = ui.promptForInstructions();
+
+    Recipe recipe = new Recipe(name, portions, instructions);
+    recipes.add(recipe);
+    return recipe;
   }
 
   private Ingredient addIngredient() {
