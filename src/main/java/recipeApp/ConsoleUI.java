@@ -13,7 +13,7 @@ public class ConsoleUI {
    * Represents the actions a user can perform from the menu.
    */
   public enum MenuAction {
-    ADD, DELETE, LIST, QUIT, None
+    ADD, DELETE, LIST, QUIT, None,
   }
 
   /**
@@ -21,7 +21,7 @@ public class ConsoleUI {
    * ingredient.
    */
   public enum RecipeOrIngredientAction {
-    RECIPE, INGREDIENT, None
+    RECIPE, INGREDIENT, None,
   }
 
   public void print(String value) {

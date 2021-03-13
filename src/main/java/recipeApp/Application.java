@@ -1,6 +1,5 @@
 package recipeApp;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,8 +18,9 @@ public class Application {
     fileHandler = new FileIO();
     ui = new ConsoleUI(scanner);
     searcher = new Searcher();
-    recipes = new ArrayList<>();
-    ingredients = new ArrayList<>();
+
+    recipes = fileHandler.loadRecipes();
+    ingredients = fileHandler.loadIngredients();
   }
 
   private void run() {
@@ -48,21 +48,44 @@ public class Application {
           deleteIngredient();
         }
         break;
+      case LIST:
+        break;
+      case None:
+        break;
+      case QUIT:
+        fileHandler.saveIngredients(ingredients);
+        fileHandler.saveRecipes(recipes);
+        break;
+      default:
+        break;
       }
     } while (action != ConsoleUI.MenuAction.QUIT);
   }
 
-  private Recipe addRecipe() {
+  private void addRecipe() {
     String name = ui.promptForName();
     int portions = ui.promptForPortions();
     String instructions = ui.promptForInstructions();
 
     Recipe recipe = new Recipe(name, portions, instructions);
+
+    String[] yesOrNo = new String[] { "yes", "no" };
+    int answer;
+
+    do {
+      answer = ui.promptChooseValue(yesOrNo);
+      if (shouldGoBackToMenu(answer)) {
+        return;
+      }
+      if (answer == 0) {
+
+      }
+    } while (answer != 1);
+
     recipes.add(recipe);
-    return recipe;
   }
 
-  private Ingredient addIngredient() {
+  private void addIngredient() {
     String name = ui.promptForName();
     while (!IngredientIsUnique(name)) {
       ui.print("The ingredient already exist.");
@@ -73,7 +96,6 @@ public class Application {
 
     Ingredient ingredient = new Ingredient(name, unit, price);
     ingredients.add(ingredient);
-    return ingredient;
   }
 
   /**
@@ -94,7 +116,7 @@ public class Application {
 
     if (ingredientNames.length > 0) {
       int index = ui.promptChooseValue(ingredientNames);
-      if (isNegative(index)) {
+      if (shouldGoBackToMenu(index)) {
         return;
       }
       ingredients.remove(index);
@@ -116,7 +138,7 @@ public class Application {
 
     if (recipeNames.length > 0) {
       int index = ui.promptChooseValue(recipeNames);
-      if (isNegative(index)) {
+      if (shouldGoBackToMenu(index)) {
         return;
       }
       recipes.remove(index);
@@ -137,7 +159,7 @@ public class Application {
    * Checks if an integer is under 0. Is used to determinate if the user want go
    * back to the main menu.
    */
-  private boolean isNegative(int value) {
+  private boolean shouldGoBackToMenu(int value) {
     if (value < 0) {
       return true;
     }

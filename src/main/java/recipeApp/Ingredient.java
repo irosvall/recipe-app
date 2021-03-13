@@ -1,6 +1,10 @@
 package recipeApp;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
+  private static final long serialVersionUID = 4982160459632845008L;
+
   private String name;
   private Unit unit;
   private Double price;
