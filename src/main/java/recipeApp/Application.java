@@ -11,10 +11,8 @@ public class Application {
   private Searcher searcher;
   private ArrayList<Recipe> recipes;
   private ArrayList<Ingredient> ingredients;
-  private Scanner scanner;
 
   Application(Scanner scanner) {
-    this.scanner = scanner;
     fileHandler = new FileIO();
     ui = new ConsoleUI(scanner);
     searcher = new Searcher();
@@ -32,34 +30,52 @@ public class Application {
     do {
       action = ui.promptForMenuAction();
       switch (action) {
-      case ADD:
-        ConsoleUI.RecipeOrIngredientAction addChoice = ui.promptForRecipeOrIngredient();
-        if (addChoice == RecipeOrIngredientAction.RECIPE) {
+      case ADD: {
+        ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
+        if (choice == RecipeOrIngredientAction.RECIPE) {
           addRecipe();
-        } else if (addChoice == RecipeOrIngredientAction.INGREDIENT) {
+        } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
           addIngredient();
         }
         break;
-      case DELETE:
-        ConsoleUI.RecipeOrIngredientAction removeChoice = ui.promptForRecipeOrIngredient();
-        if (removeChoice == RecipeOrIngredientAction.RECIPE) {
+      }
+      case DELETE: {
+        ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
+        if (choice == RecipeOrIngredientAction.RECIPE) {
           deleteRecipe();
-        } else if (removeChoice == RecipeOrIngredientAction.INGREDIENT) {
+        } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
           deleteIngredient();
         }
         break;
-      case LIST:
+      }
+      case LIST: {
+        ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
+        if (choice == RecipeOrIngredientAction.RECIPE) {
+          listRecipes();
+        } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
+          listIngredients();
+        }
         break;
+      }
       case None:
         break;
-      case QUIT:
+      case QUIT: {
         fileHandler.saveIngredients(ingredients);
         fileHandler.saveRecipes(recipes);
         break;
+      }
       default:
         break;
       }
     } while (action != ConsoleUI.MenuAction.QUIT);
+  }
+
+  private void listIngredients() {
+  }
+
+  private void listRecipes() {
+    ui.print("Choose one for details");
+
   }
 
   private void addRecipe() {
@@ -83,6 +99,42 @@ public class Application {
     } while (answer != 1);
 
     recipes.add(recipe);
+  }
+
+  /**
+   * Returns the index if a recipe is choosen, otherwise -1.
+   */
+  private int chooseRecipe() {
+    String[] recipeNames = getRecipeNames();
+
+    if (recipeNames.length > 0) {
+      int index = ui.promptChooseValue(recipeNames);
+      if (shouldGoBackToMenu(index)) {
+        return -1;
+      }
+      return index;
+    } else {
+      ui.print("There are no recipes.");
+      return -1;
+    }
+  }
+
+  /**
+   * Returns the index if a ingredient is choosen, otherwise -1.
+   */
+  private int chooseIngredient() {
+    String[] ingredientNames = getIngredientNames();
+
+    if (ingredientNames.length > 0) {
+      int index = ui.promptChooseValue(ingredientNames);
+      if (shouldGoBackToMenu(index)) {
+        return -1;
+      }
+      return index;
+    } else {
+      ui.print("There are no ingredients.");
+      return -1;
+    }
   }
 
   private void addIngredient() {
@@ -112,16 +164,16 @@ public class Application {
   }
 
   private void deleteIngredient() {
-    String[] ingredientNames = getIngredientNames();
-
-    if (ingredientNames.length > 0) {
-      int index = ui.promptChooseValue(ingredientNames);
-      if (shouldGoBackToMenu(index)) {
-        return;
-      }
+    int index = chooseIngredient();
+    if (index != -1) {
       ingredients.remove(index);
-    } else {
-      ui.print("There are no ingredients to delete.");
+    }
+  }
+
+  private void deleteRecipe() {
+    int index = chooseRecipe();
+    if (index != -1) {
+      recipes.remove(index);
     }
   }
 
@@ -131,20 +183,6 @@ public class Application {
       ingredientNames[i] = ingredients.get(i).getName();
     }
     return ingredientNames;
-  }
-
-  private void deleteRecipe() {
-    String[] recipeNames = getRecipeNames();
-
-    if (recipeNames.length > 0) {
-      int index = ui.promptChooseValue(recipeNames);
-      if (shouldGoBackToMenu(index)) {
-        return;
-      }
-      recipes.remove(index);
-    } else {
-      ui.print("There are no recipes to delete.");
-    }
   }
 
   private String[] getRecipeNames() {
