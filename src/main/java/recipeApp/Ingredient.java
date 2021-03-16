@@ -27,8 +27,8 @@ public class Ingredient implements Serializable {
     return price;
   }
 
-  public Unit getUnit() {
-    return unit;
+  public String getUnit() {
+    return unit.name().toLowerCase();
   }
 
   @Override

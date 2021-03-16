@@ -34,8 +34,25 @@ public class Recipe implements Serializable {
     return portions;
   }
 
+  public Double getPrice() {
+    Double price = 0.0;
+
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      price += recipeIngredient.getPrice();
+    }
+
+    return price;
+  }
+
   @Override
   public String toString() {
-    return "Recipe: " + getName();
+    String details = "\nRecipe: " + getName() + "\n" + getPortions() + " portions, cost: " + getPrice() + "\n";
+
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      details += recipeIngredient.toString() + "\n";
+    }
+    details += "\n" + getInstructions();
+
+    return details;
   }
 }

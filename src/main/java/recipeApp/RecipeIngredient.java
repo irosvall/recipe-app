@@ -15,6 +15,18 @@ public class RecipeIngredient implements Serializable {
     this.comments = comments;
   }
 
+  public String getName() {
+    return ingredient.getName();
+  }
+
+  public Double getPrice() {
+    return ingredient.getPrice() * amount;
+  }
+
+  public String getUnit() {
+    return ingredient.getUnit();
+  }
+
   public Double getAmount() {
     return amount;
   }
@@ -25,5 +37,10 @@ public class RecipeIngredient implements Serializable {
 
   public Ingredient getIngredient() {
     return ingredient;
+  }
+
+  @Override
+  public String toString() {
+    return getAmount() + " " + getUnit() + " " + getName() + " (" + getComments() + ")";
   }
 }

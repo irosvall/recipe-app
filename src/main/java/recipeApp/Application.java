@@ -57,8 +57,6 @@ public class Application {
         }
         break;
       }
-      case None:
-        break;
       case QUIT: {
         fileHandler.saveIngredients(ingredients);
         fileHandler.saveRecipes(recipes);
