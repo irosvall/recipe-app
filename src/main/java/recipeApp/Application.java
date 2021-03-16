@@ -71,34 +71,19 @@ public class Application {
   }
 
   private void listIngredients() {
+    int index = chooseIngredient();
+    if (index != -1) {
+      Ingredient ingredient = ingredients.get(index);
+      ui.print(ingredient.toString());
+    }
   }
 
   private void listRecipes() {
-    ui.print("Choose one for details");
-
-  }
-
-  private void addRecipe() {
-    String name = ui.promptForName();
-    int portions = ui.promptForPortions();
-    String instructions = ui.promptForInstructions();
-
-    Recipe recipe = new Recipe(name, portions, instructions);
-
-    String[] yesOrNo = new String[] { "yes", "no" };
-    int answer;
-
-    do {
-      answer = ui.promptChooseValue(yesOrNo);
-      if (shouldGoBackToMenu(answer)) {
-        return;
-      }
-      if (answer == 0) {
-
-      }
-    } while (answer != 1);
-
-    recipes.add(recipe);
+    int index = chooseRecipe();
+    if (index != -1) {
+      Recipe recipe = recipes.get(index);
+      ui.print(recipe.toString());
+    }
   }
 
   /**
@@ -135,6 +120,29 @@ public class Application {
       ui.print("There are no ingredients.");
       return -1;
     }
+  }
+
+  private void addRecipe() {
+    String name = ui.promptForName();
+    int portions = ui.promptForPortions();
+    String instructions = ui.promptForInstructions();
+
+    Recipe recipe = new Recipe(name, portions, instructions);
+
+    String[] yesOrNo = new String[] { "yes", "no" };
+    int answer;
+
+    do {
+      answer = ui.promptChooseValue(yesOrNo);
+      if (shouldGoBackToMenu(answer)) {
+        return;
+      }
+      if (answer == 0) {
+
+      }
+    } while (answer != 1);
+
+    recipes.add(recipe);
   }
 
   private void addIngredient() {

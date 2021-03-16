@@ -33,4 +33,9 @@ public class Recipe implements Serializable {
   public int getPortions() {
     return portions;
   }
+
+  @Override
+  public String toString() {
+    return "Recipe: " + getName();
+  }
 }
