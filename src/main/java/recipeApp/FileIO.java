@@ -8,65 +8,68 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class FileIO {
-  private static final String INGREDIENT_FILE_NAME = "tmp/ingredients.ser";
-  private static final String RECIPE_FILE_NAME = "tmp/recipes.ser";
+  private final String INGREDIENT_FILE_NAME = "tmp/ingredients.ser";
+  private final String RECIPE_FILE_NAME = "tmp/recipes.ser";
 
   public ArrayList<Ingredient> loadIngredients() {
-    try {
-      FileInputStream fileIn = new FileInputStream(INGREDIENT_FILE_NAME);
-      ObjectInputStream in = new ObjectInputStream(fileIn);
-      ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) in.readObject();
-      in.close();
-      fileIn.close();
+    ArrayList<?> ingredients = load(INGREDIENT_FILE_NAME);
 
-      return ingredients;
-    } catch (IOException i) {
-      i.printStackTrace();
-      return new ArrayList<Ingredient>();
-    } catch (ClassNotFoundException c) {
-      System.out.println("Ingredient class not found");
-      c.printStackTrace();
+    if (ingredients == null) {
       return new ArrayList<Ingredient>();
     }
+
+    return (ArrayList<Ingredient>) ingredients;
   }
 
   public ArrayList<Recipe> loadRecipes() {
+    ArrayList<?> recipes = load(RECIPE_FILE_NAME);
+
+    if (recipes == null) {
+      return new ArrayList<Recipe>();
+    }
+
+    return (ArrayList<Recipe>) recipes;
+  }
+
+  /**
+   * Loads recipes from file. Code inspiration gathered from:
+   * https://www.tutorialspoint.com/java/java_serialization.htm.
+   */
+  private ArrayList<?> load(String filePath) {
     try {
-      FileInputStream fileIn = new FileInputStream(RECIPE_FILE_NAME);
+      FileInputStream fileIn = new FileInputStream(filePath);
       ObjectInputStream in = new ObjectInputStream(fileIn);
-      ArrayList<Recipe> recipes = (ArrayList<Recipe>) in.readObject();
+      ArrayList<?> objects = (ArrayList<?>) in.readObject();
       in.close();
       fileIn.close();
 
-      return recipes;
+      return objects;
     } catch (IOException i) {
       i.printStackTrace();
-      return new ArrayList<Recipe>();
+      return null;
     } catch (ClassNotFoundException c) {
-      System.out.println("Recipe class not found");
       c.printStackTrace();
-      return new ArrayList<Recipe>();
+      return null;
     }
   }
 
   public void saveIngredients(ArrayList<Ingredient> ingredients) {
-    try {
-      FileOutputStream fileOut = new FileOutputStream(INGREDIENT_FILE_NAME);
-      ObjectOutputStream out = new ObjectOutputStream(fileOut);
-      out.writeObject(ingredients);
-
-      out.close();
-      fileOut.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    save(ingredients, INGREDIENT_FILE_NAME);
   }
 
   public void saveRecipes(ArrayList<Recipe> recipes) {
+    save(recipes, RECIPE_FILE_NAME);
+  }
+
+  /**
+   * Saves objects to file. Code inspiration gathered from:
+   * https://www.tutorialspoint.com/java/java_serialization.htm.
+   */
+  private void save(Iterable<?> objects, String filePath) {
     try {
-      FileOutputStream fileOut = new FileOutputStream(RECIPE_FILE_NAME);
+      FileOutputStream fileOut = new FileOutputStream(filePath);
       ObjectOutputStream out = new ObjectOutputStream(fileOut);
-      out.writeObject(recipes);
+      out.writeObject(objects);
 
       out.close();
       fileOut.close();
