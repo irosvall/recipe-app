@@ -127,20 +127,36 @@ public class Application {
 
     Recipe recipe = new Recipe(name, portions, instructions);
 
-    String[] yesOrNo = new String[] { "yes", "no" };
-    int answer;
-
+    ConsoleUI.YesOrNoAction answer;
     do {
-      answer = ui.promptChooseValue(yesOrNo);
-      if (shouldGoBackToMenu(answer)) {
-        return;
-      }
-      if (answer == 0) {
+      ui.print("Do you wish to add an ingredient?");
+      answer = ui.promptForYesOrNo();
 
+      if (answer == ConsoleUI.YesOrNoAction.YES) {
+        RecipeIngredient ingredient = createRecipeIngredient();
+
+        if (ingredient == null) {
+          ui.print("No ingredients were choosen or could be choosen.");
+        } else {
+          recipe.addIngredient(ingredient);
+        }
       }
-    } while (answer != 1);
+    } while (answer != ConsoleUI.YesOrNoAction.NO);
 
     recipes.add(recipe);
+    ui.print("The recipe was added.");
+  }
+
+  private RecipeIngredient createRecipeIngredient() {
+    int index = chooseIngredient();
+    if (index == -1) {
+      return null;
+    }
+    Ingredient ingredient = ingredients.get(index);
+    int amount = ui.promptForIngredientAmount();
+    String comments = ui.promptForIngredientComments();
+
+    return new RecipeIngredient(ingredient, amount, comments);
   }
 
   private void addIngredient() {
@@ -154,6 +170,7 @@ public class Application {
 
     Ingredient ingredient = new Ingredient(name, unit, price);
     ingredients.add(ingredient);
+    ui.print("The ingredient was added.");
   }
 
   /**

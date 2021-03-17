@@ -6,10 +6,10 @@ public class RecipeIngredient implements Serializable {
   private static final long serialVersionUID = -8009562172289137924L;
   
   private Ingredient ingredient;
-  private Double amount;
+  private int amount;
   private String comments;
 
-  RecipeIngredient(Ingredient ingredient, Double amount, String comments) {
+  RecipeIngredient(Ingredient ingredient, int amount, String comments) {
     this.ingredient = ingredient;
     this.amount = amount;
     this.comments = comments;
@@ -27,7 +27,7 @@ public class RecipeIngredient implements Serializable {
     return ingredient.getUnit();
   }
 
-  public Double getAmount() {
+  public int getAmount() {
     return amount;
   }
 

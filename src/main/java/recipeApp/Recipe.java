@@ -44,6 +44,10 @@ public class Recipe implements Serializable {
     return price;
   }
 
+  public void addIngredient(RecipeIngredient ingredient) {
+    ingredients.add(ingredient);
+  }
+
   @Override
   public String toString() {
     String details = "\nRecipe: " + getName() + "\n" + getPortions() + " portions, cost: " + getPrice() + "\n";

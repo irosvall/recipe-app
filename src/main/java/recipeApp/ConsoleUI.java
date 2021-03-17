@@ -24,6 +24,13 @@ public class ConsoleUI {
     RECIPE, INGREDIENT, None,
   }
 
+  /**
+   * Represents the actions a user can perform from during yes or no questions.
+   */
+  public enum YesOrNoAction {
+    YES, NO, None,
+  }
+
   public void print(String value) {
     System.out.println(value);
   }
@@ -80,6 +87,25 @@ public class ConsoleUI {
     }
   }
 
+  public YesOrNoAction promptForYesOrNo() {
+    String[] yesOrNo = new String[] { "yes", "no" };
+    printList(yesOrNo);
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 1 || answer > 2);
+
+    switch (answer) {
+      case 1:
+        return YesOrNoAction.YES;
+      case 2:
+        return YesOrNoAction.NO;
+      default:
+        return YesOrNoAction.None;
+      }
+  }
+
   private void printRecipeOrIngredient() {
     System.out.println("Choose between:");
     String[] actions = new String[] { "Recipe", "Ingredient", "Go back to main menu" };
@@ -112,11 +138,9 @@ public class ConsoleUI {
 
   private String getInputString() {
     if (scanner.hasNextLine()) {
-      return scanner.nextLine();
-    } else {
-      scanner.next();
-      return "";
+      scanner.nextLine();
     }
+    return scanner.nextLine();
   }
 
   /**
@@ -186,7 +210,7 @@ public class ConsoleUI {
   }
 
   public int promptForPortions() {
-    System.out.println("Enter how many portions the recipe is for:");
+    System.out.println("Enter how many portions the recipe should be for:");
 
     int answer;
     do {
@@ -205,5 +229,23 @@ public class ConsoleUI {
     } while (instructions.length() < 1);
 
     return instructions;
+  }
+
+  public int promptForIngredientAmount() {
+    System.out.println("Enter the amount of the ingredient:");
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 1);
+
+    return answer;
+  }
+
+  public String promptForIngredientComments() {
+    System.out.println("If you wish to add any comments to the ingredient enter it now, otherwise enter blank:");
+
+    String answer = getInputString();
+    return answer;
   }
 }
