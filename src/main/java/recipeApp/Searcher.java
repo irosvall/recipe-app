@@ -5,15 +5,15 @@ import java.util.ArrayList;
 public class Searcher {
   private SearchStrategy strategy;
 
-  Searcher() {
-    strategy = new IngredientName();
+  Searcher(SearchStrategy strategy) {
+    this.strategy = strategy;
   }
 
   public void setStrategy(SearchStrategy strategy) {
     this.strategy = strategy;
   }
 
-  public ArrayList<Recipe> search(String value, ArrayList<Recipe> recipes) {
-    return strategy.search(value, recipes);
+  public ArrayList<Recipe> search(ArrayList<Recipe> recipes) {
+    return strategy.search(recipes);
   }
 }

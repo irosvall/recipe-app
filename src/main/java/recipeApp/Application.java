@@ -15,7 +15,7 @@ public class Application {
   Application(Scanner scanner) {
     fileHandler = new FileIO();
     ui = new ConsoleUI(scanner);
-    searcher = new Searcher();
+    searcher = new Searcher(new IngredientName(ui));
 
     recipes = fileHandler.loadRecipes();
     ingredients = fileHandler.loadIngredients();
@@ -56,6 +56,11 @@ public class Application {
           listIngredients();
         }
         break;
+      }
+      case SEARCH: {
+        searcher.setStrategy(new MaxPrice(ui));
+        ArrayList<Recipe> matchingRecipes = searcher.search(recipes);
+        System.out.println(matchingRecipes);
       }
       case QUIT: {
         fileHandler.saveIngredients(ingredients);

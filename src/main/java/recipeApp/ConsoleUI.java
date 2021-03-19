@@ -13,7 +13,7 @@ public class ConsoleUI {
    * Represents the actions a user can perform from the menu.
    */
   public enum MenuAction {
-    ADD, DELETE, LIST, QUIT, None,
+    ADD, DELETE, LIST, SEARCH, QUIT, None,
   }
 
   /**
@@ -45,7 +45,7 @@ public class ConsoleUI {
 
     do {
       answer = getInputInteger();
-    } while (answer < 1 || answer > 4);
+    } while (answer < 1 || answer > 5);
 
     switch (answer) {
     case 1:
@@ -55,6 +55,8 @@ public class ConsoleUI {
     case 3:
       return MenuAction.LIST;
     case 4:
+      return MenuAction.SEARCH;
+    case 5:
       return MenuAction.QUIT;
     default:
       return MenuAction.None;
@@ -64,7 +66,7 @@ public class ConsoleUI {
   private void printMenu() {
     System.out.println("");
     String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
-        "List all recipes or ingredients", "Quit the application" };
+        "List all recipes or ingredients", "Search for recipes" ,"Quit the application" };
     printList(actions);
   }
 
@@ -246,6 +248,17 @@ public class ConsoleUI {
     System.out.println("If you wish to add any comments to the ingredient enter it now, otherwise enter blank:");
 
     String answer = getInputString();
+    return answer;
+  }
+
+  public Double promptForMaxPrice() {
+    System.out.println("Enter the maximum price for recipes you want to see:");
+
+    Double answer;
+    do {
+      answer = getInputDouble();
+    } while (answer < 0);
+
     return answer;
   }
 }
