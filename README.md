@@ -98,7 +98,7 @@ You are to create an application that handles recipes. In essence this is a digi
 - vegan (auto label all vegan ingredients)
 - dairy free (auto label no dairy)
 
-## File Format
+### File Format
 It is up to you to define the file format. Try to make it possible to work with using the method _split()_ in **String**. One way to see it is that you put one recipe per line in the file and separate the parts with semicolon. There might be useful to add lists of thing (the ingredients for example) and try to separate them in another way. Below could be the beginning of an example:
 ```
 Gingerbread biscuit; 100, pieces; [1, litre, flour; 2, dl, cream; 1, spoon, cinnamon]; *Mix everything, *Wait one day, *Make figures
@@ -108,3 +108,48 @@ The above is by no means covering everything and should not be seen as "the solu
 Note requirements regarding loading and saving, it is easier to load everything at startup and save everything at program end.
 
 You are free to use any format you like, if you feel adventurous you may use something like JSON or XML (and add suitable libraries), but you then need to provide easy to follow build instructions. Or, preferably use gradle.
+
+## Handing in the Assignment
+When done with the tasks you issue a merge request to the release branch.
+
+Follow the instructions for the hand in process.
+
+### Hints
+
+- At some point wrap things up and hand in something that works
+- Make sure the code compiles
+- Remove dead code or code that is not used
+- It is better to leave some features out than to have a lot of unfinished things lying around
+- Make sure the code looks nice and tidy, good naming, and coding standards, keep it consequent. Messy looking code is so simple to fix and makes everyone so much happier.
+- Create a nice class diagram with proper notation, use the assignment 3 diagram as a guide (note the different relations have different notation), this is the level of detail we are expecting
+- Feel free to add any other diagrams to (object, sequence etc)
+- Use a README.md where you clearly state what is working and what is not. Possibly with notes on how they could be implemented/designed.
+- Feel free to point out things that you think are badly designed and how you would have liked it to be done. It is not uncommon that you make poor choices and they can be hard to rectify if you notice problems to close to the deadline. Showing that you are aware of these is indeed a redeeming quality.
+
+
+### Merge Request
+
+**Please label the merge request with a4**
+
+You should use the following text in the description (do not forget to remove the ``` if copy pasting into the merge request description)
+```
+# Release
+<!--
+You may write in {Swedish or English} and you are free to remove the comments if you like.
+-->
+
+- [ ]  I'm handing in an implementation I think is suitable for the passing grade.
+- [ ]  I'm handing in an implementation I think is suitable for a higher grade.
+
+## Release status
+
+<!-- 
+To tell the examiner that your application is ready to be assessed, you must make a release by checking all the checkboxes below. 
+You check a checkbox by adding an "x" in the parentheses. 
+-->
+
+- [ ]  I intend to submit the assignment and at the same time I guarantee that I am the one who created the material that is submitted. In cases where I use external libraries or borrowed from other sources, the source is clearly stated.
+(_Jag avser göra en inlämning av uppgiften och jag garanterar samtidigt att jag är den som skapat materialet som lämnas in. I de fall jag använder externa bibliotek eller har lånat från andra källor så är källan tydligt angiven._)
+
+---
+```
