@@ -45,7 +45,6 @@ public class FileIO {
 
       return objects;
     } catch (IOException i) {
-      i.printStackTrace();
       return null;
     } catch (ClassNotFoundException c) {
       c.printStackTrace();

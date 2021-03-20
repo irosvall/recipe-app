@@ -3,7 +3,7 @@ package recipeApp;
 import java.io.Serializable;
 
 public class Ingredient implements Serializable {
-  private static final long serialVersionUID = 4982160459632845008L;
+  private static final long serialVersionUID = -4852738321546900632L;
 
   private String name;
   private Unit unit;

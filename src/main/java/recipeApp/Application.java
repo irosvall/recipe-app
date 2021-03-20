@@ -61,6 +61,7 @@ public class Application {
         searcher.setStrategy(new MaxPrice(ui));
         ArrayList<Recipe> matchingRecipes = searcher.search(recipes);
         System.out.println(matchingRecipes);
+        break;
       }
       case QUIT: {
         fileHandler.saveIngredients(ingredients);

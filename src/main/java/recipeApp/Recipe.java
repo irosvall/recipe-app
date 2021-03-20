@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Recipe implements Serializable {
-  private static final long serialVersionUID = -1895452190258298515L;
+  private static final long serialVersionUID = 754188805358468565L;
 
   private String name;
   private int portions;

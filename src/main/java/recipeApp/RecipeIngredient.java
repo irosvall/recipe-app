@@ -3,8 +3,8 @@ package recipeApp;
 import java.io.Serializable;
 
 public class RecipeIngredient implements Serializable {
-  private static final long serialVersionUID = -8009562172289137924L;
-  
+  private static final long serialVersionUID = -8285754010969778555L;
+
   private Ingredient ingredient;
   private int amount;
   private String comments;
