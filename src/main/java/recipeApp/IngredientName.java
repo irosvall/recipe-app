@@ -11,8 +11,20 @@ public class IngredientName implements SearchStrategy {
 
   @Override
   public ArrayList<Recipe> search(ArrayList<Recipe> recipes) {
-    // TODO Auto-generated method stub
-    return null;
+    String name = ui.promptForName();
+
+    ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();
+    for (Recipe recipe : recipes) {
+      ArrayList<RecipeIngredient> ingredients = recipe.getIngredients();
+      for (RecipeIngredient ingredient : ingredients) {
+        if (ingredient.getName().equalsIgnoreCase(name)) {
+          matchingRecipes.add(recipe);
+          break;
+        }
+      }
+    }
+
+    return matchingRecipes;
   }
-  
+
 }

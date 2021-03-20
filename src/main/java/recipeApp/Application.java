@@ -58,7 +58,7 @@ public class Application {
         break;
       }
       case SEARCH: {
-        searcher.setStrategy(new MaxPrice(ui));
+        searcher.setStrategy(new IngredientName(ui));
         ArrayList<Recipe> matchingRecipes = searcher.search(recipes);
         System.out.println(matchingRecipes);
         break;
