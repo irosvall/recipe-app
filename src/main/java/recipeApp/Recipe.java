@@ -44,6 +44,16 @@ public class Recipe implements Serializable {
     return price;
   }
 
+  public Double getPrice(Double multiplier) {
+    Double price = 0.0;
+
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      price += recipeIngredient.getPrice(multiplier);
+    }
+
+    return price;
+  }
+
   public void addIngredient(RecipeIngredient ingredient) {
     ingredients.add(ingredient);
   }
@@ -58,5 +68,42 @@ public class Recipe implements Serializable {
     details += "\n" + getInstructions();
 
     return details;
+  }
+
+  /**
+   * Returns a string with details of the recipe depending on how many portions is wanted.
+   * If recipe contains non-divideable ingredients,
+   * then the nearest even divisor above the desired number of portions is used.
+   */
+  public String toString(int portions) {
+    int finalPortions = portions;
+
+    while (!isValidPortions(finalPortions)) {
+      finalPortions++;
+    }
+
+    Double multiplier = ((double) finalPortions) / getPortions();
+
+    String details = "\nRecipe: " + getName() + "\n" + finalPortions + " portions, cost: " + getPrice(multiplier) + "\n";
+
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      details += recipeIngredient.toString(multiplier) + "\n";
+    }
+    details += "\n" + getInstructions();
+
+    return details;
+  }
+
+  private boolean isValidPortions(int portions) {
+    Double multiplier = ((double) portions) / getPortions();
+
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      if (recipeIngredient.getUnit().equals("piece")) {
+        if (recipeIngredient.getAmount(multiplier) % 1 != 0) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }

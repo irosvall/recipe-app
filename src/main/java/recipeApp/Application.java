@@ -86,7 +86,15 @@ public class Application {
     int index = chooseRecipe();
     if (index != -1) {
       Recipe recipe = recipes.get(index);
-      ui.print(recipe.toString());
+
+      ui.print("Do you want to specify how many portions you would like?");
+      ConsoleUI.YesOrNoAction answer = ui.promptForYesOrNo();
+      if (answer == ConsoleUI.YesOrNoAction.YES) {
+        int portions = ui.promptForPortions();
+        ui.print(recipe.toString(portions));
+      } else {
+        ui.print(recipe.toString());
+      }
     }
   }
 

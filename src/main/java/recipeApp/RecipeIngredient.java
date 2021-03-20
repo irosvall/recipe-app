@@ -23,12 +23,20 @@ public class RecipeIngredient implements Serializable {
     return ingredient.getPrice() * amount;
   }
 
+  public Double getPrice(Double multiplier) {
+    return ingredient.getPrice() * amount * multiplier;
+  }
+
   public String getUnit() {
     return ingredient.getUnit();
   }
 
   public int getAmount() {
     return amount;
+  }
+
+  public Double getAmount(Double multiplier) {
+    return getAmount() * multiplier;
   }
 
   public String getComments() {
@@ -41,6 +49,35 @@ public class RecipeIngredient implements Serializable {
 
   @Override
   public String toString() {
-    return getAmount() + " " + getUnit() + " " + getName() + " (" + getComments() + ")";
+    String details = getAmount() + " " + getUnit() + " " + getName();
+
+    if (getComments().equals("")) {
+      details += " " + getComments();
+    } else {
+      details += " (" + getComments() + ")";
+    }
+
+    return details;
+  }
+
+  public String toString(Double multiplier) {
+    String details;
+
+    Double amount = getAmount(multiplier);
+    if (amount % 1 == 0) {
+      details = "" + amount.intValue();
+    } else {
+      details = "" + amount;
+    }
+
+    details += " " + getUnit() + " " + getName();
+
+    if (getComments().equals("")) {
+      details += " " + getComments();
+    } else {
+      details += " (" + getComments() + ")";
+    }
+
+    return details;
   }
 }
