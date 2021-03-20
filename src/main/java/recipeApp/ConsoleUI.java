@@ -122,7 +122,9 @@ public class ConsoleUI {
 
   private int getInputInteger() {
     if (scanner.hasNextInt()) {
-      return scanner.nextInt();
+      int answer = scanner.nextInt();
+      scanner.nextLine();
+      return answer;
     } else {
       scanner.next();
       return -1;
@@ -131,7 +133,9 @@ public class ConsoleUI {
 
   private Double getInputDouble() {
     if (scanner.hasNextDouble()) {
-      return scanner.nextDouble();
+      Double answer = scanner.nextDouble();
+      scanner.nextLine();
+      return answer;
     } else {
       scanner.next();
       return -1.0;
@@ -139,9 +143,6 @@ public class ConsoleUI {
   }
 
   private String getInputString() {
-    if (scanner.hasNextLine()) {
-      scanner.nextLine();
-    }
     return scanner.nextLine();
   }
 

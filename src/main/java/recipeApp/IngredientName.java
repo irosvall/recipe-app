@@ -26,5 +26,4 @@ public class IngredientName implements SearchStrategy {
 
     return matchingRecipes;
   }
-
 }
