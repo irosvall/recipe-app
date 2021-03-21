@@ -210,6 +210,12 @@ public class Application {
   private void deleteIngredient() {
     int index = chooseIngredient();
     if (index != -1) {
+      for (Recipe recipe : recipes) {
+        if (recipe.hasIngredient(ingredients.get(index))) {
+          ui.print("The ingredient is in use in at least one recipe, so it can't be deleted.");
+          return;
+        }
+      }
       ingredients.remove(index);
     }
   }

@@ -58,6 +58,15 @@ public class Recipe implements Serializable {
     ingredients.add(ingredient);
   }
 
+  public boolean hasIngredient(Ingredient ingredient) {
+    for (RecipeIngredient recipeIngredient : ingredients) {
+      if (ingredient.getName().equals(recipeIngredient.getIngredient().getName())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @Override
   public String toString() {
     String details = "\nRecipe: " + getName() + "\n" + getPortions() + " portions, cost: " + getPrice() + "\n";
