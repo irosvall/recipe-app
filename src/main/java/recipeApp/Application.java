@@ -51,16 +51,23 @@ public class Application {
       case LIST: {
         ConsoleUI.RecipeOrIngredientAction choice = ui.promptForRecipeOrIngredient();
         if (choice == RecipeOrIngredientAction.RECIPE) {
-          listRecipes();
+          listRecipes(recipes);
         } else if (choice == RecipeOrIngredientAction.INGREDIENT) {
           listIngredients();
         }
         break;
       }
       case SEARCH: {
-        searcher.setStrategy(new IngredientName(ui));
+        Searcher.SearchStrategyAction searchStrategy = ui.promptForSearchStrategy();
+        if (searchStrategy == Searcher.SearchStrategyAction.INGREDIENT_NAME) {
+          searcher.setStrategy(new IngredientName(ui));
+        } else if (searchStrategy == Searcher.SearchStrategyAction.MAX_PRICE) {
+          searcher.setStrategy(new MaxPrice(ui));
+        } else {
+          break;
+        }
         ArrayList<Recipe> matchingRecipes = searcher.search(recipes);
-        System.out.println(matchingRecipes);
+        listRecipes(matchingRecipes);
         break;
       }
       case QUIT: {
@@ -82,8 +89,8 @@ public class Application {
     }
   }
 
-  private void listRecipes() {
-    int index = chooseRecipe();
+  private void listRecipes(ArrayList<Recipe> recipes) {
+    int index = chooseRecipe(recipes);
     if (index != -1) {
       Recipe recipe = recipes.get(index);
 
@@ -101,8 +108,8 @@ public class Application {
   /**
    * Returns the index if a recipe is choosen, otherwise -1.
    */
-  private int chooseRecipe() {
-    String[] recipeNames = getRecipeNames();
+  private int chooseRecipe(ArrayList<Recipe> recipes) {
+    String[] recipeNames = getRecipeNames(recipes);
 
     if (recipeNames.length > 0) {
       int index = ui.promptChooseValue(recipeNames);
@@ -208,7 +215,7 @@ public class Application {
   }
 
   private void deleteRecipe() {
-    int index = chooseRecipe();
+    int index = chooseRecipe(recipes);
     if (index != -1) {
       recipes.remove(index);
     }
@@ -222,7 +229,7 @@ public class Application {
     return ingredientNames;
   }
 
-  private String[] getRecipeNames() {
+  private String[] getRecipeNames(ArrayList<Recipe> recipes) {
     String[] recipeNames = new String[recipes.size()];
     for (int i = 0; i < recipes.size(); i++) {
       recipeNames[i] = recipes.get(i).getName();

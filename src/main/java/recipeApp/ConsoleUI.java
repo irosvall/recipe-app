@@ -66,7 +66,7 @@ public class ConsoleUI {
   private void printMenu() {
     System.out.println("");
     String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
-        "List all recipes or ingredients", "Search for recipes" ,"Quit the application" };
+        "List all recipes or ingredients", "Search for recipes", "Quit the application" };
     printList(actions);
   }
 
@@ -99,13 +99,13 @@ public class ConsoleUI {
     } while (answer < 1 || answer > 2);
 
     switch (answer) {
-      case 1:
-        return YesOrNoAction.YES;
-      case 2:
-        return YesOrNoAction.NO;
-      default:
-        return YesOrNoAction.None;
-      }
+    case 1:
+      return YesOrNoAction.YES;
+    case 2:
+      return YesOrNoAction.NO;
+    default:
+      return YesOrNoAction.None;
+    }
   }
 
   private void printRecipeOrIngredient() {
@@ -261,5 +261,25 @@ public class ConsoleUI {
     } while (answer < 0);
 
     return answer;
+  }
+
+  public Searcher.SearchStrategyAction promptForSearchStrategy() {
+    System.out.println("Choose search strategy:");
+    String[] strategies = new String[] { "By ingredient name", "By max price", "Go back to main menu" };
+    printList(strategies);
+
+    int answer;
+    do {
+      answer = getInputInteger();
+    } while (answer < 1 || answer > strategies.length);
+
+    switch (answer) {
+    case 1:
+      return Searcher.SearchStrategyAction.INGREDIENT_NAME;
+    case 2:
+      return Searcher.SearchStrategyAction.MAX_PRICE;
+    default:
+      return Searcher.SearchStrategyAction.None;
+    }
   }
 }

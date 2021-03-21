@@ -9,6 +9,13 @@ public class Searcher {
     this.strategy = strategy;
   }
 
+  /**
+   * Represents the strategies a user can choose from.
+   */
+  public enum SearchStrategyAction {
+    INGREDIENT_NAME, MAX_PRICE, None,
+  }
+
   public void setStrategy(SearchStrategy strategy) {
     this.strategy = strategy;
   }
