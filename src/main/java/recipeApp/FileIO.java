@@ -31,6 +31,14 @@ public class FileIO {
     return (ArrayList<Recipe>) recipes;
   }
 
+  public void saveIngredients(ArrayList<Ingredient> ingredients) {
+    save(ingredients, INGREDIENT_FILE_NAME);
+  }
+
+  public void saveRecipes(ArrayList<Recipe> recipes) {
+    save(recipes, RECIPE_FILE_NAME);
+  }
+
   /**
    * Loads recipes from file. Code inspiration gathered from:
    * https://www.tutorialspoint.com/java/java_serialization.htm.
@@ -50,14 +58,6 @@ public class FileIO {
       c.printStackTrace();
       return null;
     }
-  }
-
-  public void saveIngredients(ArrayList<Ingredient> ingredients) {
-    save(ingredients, INGREDIENT_FILE_NAME);
-  }
-
-  public void saveRecipes(ArrayList<Recipe> recipes) {
-    save(recipes, RECIPE_FILE_NAME);
   }
 
   /**

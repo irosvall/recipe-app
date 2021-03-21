@@ -63,13 +63,6 @@ public class ConsoleUI {
     }
   }
 
-  private void printMenu() {
-    System.out.println("");
-    String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
-        "List all recipes or ingredients", "Search for recipes", "Quit the application" };
-    printList(actions);
-  }
-
   public RecipeOrIngredientAction promptForRecipeOrIngredient() {
     printRecipeOrIngredient();
 
@@ -106,44 +99,6 @@ public class ConsoleUI {
     default:
       return YesOrNoAction.None;
     }
-  }
-
-  private void printRecipeOrIngredient() {
-    System.out.println("Choose between:");
-    String[] actions = new String[] { "Recipe", "Ingredient", "Go back to main menu" };
-    printList(actions);
-  }
-
-  private void printList(String[] values) {
-    for (int i = 0; i < values.length; i++) {
-      System.out.println((i + 1) + ". " + values[i]);
-    }
-  }
-
-  private int getInputInteger() {
-    if (scanner.hasNextInt()) {
-      int answer = scanner.nextInt();
-      scanner.nextLine();
-      return answer;
-    } else {
-      scanner.next();
-      return -1;
-    }
-  }
-
-  private Double getInputDouble() {
-    if (scanner.hasNextDouble()) {
-      Double answer = scanner.nextDouble();
-      scanner.nextLine();
-      return answer;
-    } else {
-      scanner.next();
-      return -1.0;
-    }
-  }
-
-  private String getInputString() {
-    return scanner.nextLine();
   }
 
   /**
@@ -281,5 +236,50 @@ public class ConsoleUI {
     default:
       return Searcher.SearchStrategyAction.None;
     }
+  }
+
+  private void printMenu() {
+    System.out.println("");
+    String[] actions = new String[] { "Add a recipe or ingredient", "Remove a recipe or ingredient",
+        "List all recipes or ingredients", "Search for recipes", "Quit the application" };
+    printList(actions);
+  }
+
+  private void printRecipeOrIngredient() {
+    System.out.println("Choose between:");
+    String[] actions = new String[] { "Recipe", "Ingredient", "Go back to main menu" };
+    printList(actions);
+  }
+
+  private void printList(String[] values) {
+    for (int i = 0; i < values.length; i++) {
+      System.out.println((i + 1) + ". " + values[i]);
+    }
+  }
+
+  private int getInputInteger() {
+    if (scanner.hasNextInt()) {
+      int answer = scanner.nextInt();
+      scanner.nextLine();
+      return answer;
+    } else {
+      scanner.next();
+      return -1;
+    }
+  }
+
+  private Double getInputDouble() {
+    if (scanner.hasNextDouble()) {
+      Double answer = scanner.nextDouble();
+      scanner.nextLine();
+      return answer;
+    } else {
+      scanner.next();
+      return -1.0;
+    }
+  }
+
+  private String getInputString() {
+    return scanner.nextLine();
   }
 }
