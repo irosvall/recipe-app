@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class FileIO {
-  private final String INGREDIENT_FILE_NAME = "tmp/ingredients.ser";
-  private final String RECIPE_FILE_NAME = "tmp/recipes.ser";
+  private final String INGREDIENT_FILE_NAME = "ingredients.ser";
+  private final String RECIPE_FILE_NAME = "recipes.ser";
 
   public ArrayList<Ingredient> loadIngredients() {
     ArrayList<?> ingredients = load(INGREDIENT_FILE_NAME);
@@ -40,29 +40,27 @@ public class FileIO {
   }
 
   /**
-   * Loads recipes from file. Code inspiration gathered from:
-   * https://www.tutorialspoint.com/java/java_serialization.htm.
+   * Loads recipes from file.
    */
   private ArrayList<?> load(String filePath) {
     try {
       FileInputStream fileIn = new FileInputStream(filePath);
       ObjectInputStream in = new ObjectInputStream(fileIn);
       ArrayList<?> objects = (ArrayList<?>) in.readObject();
+
       in.close();
       fileIn.close();
-
       return objects;
-    } catch (IOException i) {
+    } catch (IOException e) {
       return null;
-    } catch (ClassNotFoundException c) {
-      c.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
       return null;
     }
   }
 
   /**
-   * Saves objects to file. Code inspiration gathered from:
-   * https://www.tutorialspoint.com/java/java_serialization.htm.
+   * Saves objects to file.
    */
   private void save(Iterable<?> objects, String filePath) {
     try {
