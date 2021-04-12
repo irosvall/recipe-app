@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id "application"
+}
+
+test {
+    // also some verbose output so we get some info in the console when we run tests
+    testLogging {
+        outputs.upToDateWhen {false}
+        showStandardStreams = true
+    }
+}
+
+application {
+    mainClass = 'recipeApp.Application'
+}
+
+run {
+    standardInput = System.in
+}
+
+group 'se.lnu.oop'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
