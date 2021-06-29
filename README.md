@@ -1,5 +1,7 @@
-# Assignment 4
+# Recipe App
 
-Jag har gjort alla krav för att få ett G åtminstånde på uppgiften, och applikationen bör inte krascha. All funktionalitet ska alltså vara fungerande. Det jag inte är nöjd med är att det finns mycket duplicering av kod, speciellt i Application. Jag försökte jättemycket att få bort duplicerad kod genom att skapa ett gemensamt interface, arv med mera för Ingredient och Recipe, men jag fick aldrig till det att fungera hela vägen. Jag nöjde mig därav hur det blev nu eftersom tiden rann ut, men jag förstår att min design har brister.
+This application was a project I made as a part of my studies at Linnaeus University, completed 2021-03-21.
 
-En idé jag hade att gå vidare med designen var att ska en RecipeHandler, IngredientHandler som ärver från en abstrakt Handler klass. På det sättet hade kanske jag kunnat undvika duplicering av kod. Det hade också gjort Application mindre överflödig på kod eftersom de olika handlers skulle få ta hand om operationer som använder sig av Recipe listor och Ingredient listor. Jag ville inte ha dem operationerna direkt i Recipe och Ingredient klasserna eftersom de är en mall för "ett" recept resp. "en" Ingredient. Jag tänkte att de därav inte ska hantera listor av sig själv.
+---
+
+The application is console based and makes it possible to create recipes with your own defined ingredients. The recipes and ingredients are saved persistently to file for consistent usage.
